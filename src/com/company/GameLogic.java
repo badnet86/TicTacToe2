@@ -17,6 +17,8 @@ public class GameLogic {
 	private String field8 = "";
 	private String field9 = "";
 
+	private int input = 0;
+
 	Player player1 = new Player("Sascha");
 	Player player2 = new Player("Steven");
 
@@ -63,9 +65,50 @@ public class GameLogic {
 		return symbol;
 	}
 
+	public boolean fieldIsOccupied() {
+		boolean b = false;
+		if (input == 1 && !field1.equals("")) {
+			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
+			b = true;
+		}
+		if (input == 2 && !field2.equals("")) {
+			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
+			b = true;
+		}
+		if (input == 3 && !field3.equals("")) {
+			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
+			b = true;
+		}
+		if (input == 4 && !field4.equals("")) {
+			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
+			b = true;
+		}
+		if (input == 5 && !field5.equals("")) {
+			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
+			b = true;
+		}
+		if (input == 6 && !field6.equals("")) {
+			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
+			b = true;
+		}
+		if (input == 7 && !field7.equals("")) {
+			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
+			b = true;
+		}
+		if (input == 8 && !field8.equals("")) {
+			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
+			b = true;
+		}
+		if (input == 9 && !field9.equals("")) {
+			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
+			b = true;
+		}
+		return b;
+	}
+
 	public void makeTurn() {
 
-		int input = Main.playerInput();
+		input = Main.playerInput();
 
 		if (input == 1 && field1.equals("")) {
 			field1 = setXorO();
@@ -97,7 +140,7 @@ public class GameLogic {
 
 		if (IsThereWinner())
 			System.out.println("Gewinner ist: " + WhoIsWinner());
-		setCurrentPlayer();
+		
 
 	}
 

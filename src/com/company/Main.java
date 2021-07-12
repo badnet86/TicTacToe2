@@ -13,12 +13,16 @@ public class Main {
 		int i = 0;
 		// ToDo: replace condition of while loop
 		while (!logic.IsThereWinner()) {
-			logic.makeTurn();
-			logic.TestOutput();
-			i++;
+
+			
+				logic.makeTurn();
+				
+				logic.TestOutput();
+				logic.setCurrentPlayer();
+				i++;
+			
 		}
 
-		
 		System.out.println("Das Spiel ist fertig.");
 
 	}
