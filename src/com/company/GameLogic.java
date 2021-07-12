@@ -34,9 +34,7 @@ public class GameLogic {
 		if (player1.isOnTurn() == false && player2.isOnTurn() == true) {
 			player1.setOnTurn(true);
 			player2.setOnTurn(false);
-		}
-		else
-		 {
+		} else {
 			player1.setOnTurn(false);
 			player2.setOnTurn(true);
 		}
@@ -97,8 +95,46 @@ public class GameLogic {
 			field9 = setXorO();
 		}
 
+		if (IsThereWinner())
+			System.out.println("Gewinner ist: " + WhoIsWinner());
 		setCurrentPlayer();
 
+	}
+
+	public boolean IsThereWinner() {
+		boolean winner = false;
+		if ((field1.equals("X") && field2.equals("X") && field3.equals("X"))
+				|| (field4.equals("X") && field5.equals("X") && field6.equals("X"))
+				|| (field7.equals("X") && field8.equals("X") && field9.equals("X"))
+				|| (field1.equals("X") && field4.equals("X") && field7.equals("X"))
+				|| (field2.equals("X") && field5.equals("X") && field8.equals("X"))
+				|| (field3.equals("X") && field6.equals("X") && field9.equals("X"))
+				|| (field1.equals("X") && field5.equals("X") && field9.equals("X"))
+				|| (field3.equals("X") && field5.equals("X") && field7.equals("X"))) {
+			winner = true;
+			player1.setHasWon(true);
+		}
+		if ((field1.equals("O") && field2.equals("O") && field3.equals("O"))
+				|| (field4.equals("O") && field5.equals("O") && field6.equals("O"))
+				|| (field7.equals("O") && field8.equals("O") && field9.equals("O"))
+				|| (field1.equals("O") && field4.equals("O") && field7.equals("O"))
+				|| (field2.equals("O") && field5.equals("O") && field8.equals("O"))
+				|| (field3.equals("O") && field6.equals("O") && field9.equals("O"))
+				|| (field1.equals("O") && field5.equals("O") && field9.equals("O"))
+				|| (field3.equals("O") && field5.equals("O") && field7.equals("O"))) {
+			winner = true;
+			player2.setHasWon(true);
+		}
+		return winner;
+	}
+
+	public String WhoIsWinner() {
+		Player winner = null;
+		if (player1.isHasWon())
+			winner = player1;
+		if (player2.isHasWon())
+			winner = player2;
+		return winner.getName();
 	}
 
 	public void TestOutput() {
@@ -108,4 +144,5 @@ public class GameLogic {
 
 		System.out.println(whoIsCurrentPlayer().getName());
 	}
+
 }

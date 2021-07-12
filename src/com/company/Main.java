@@ -7,18 +7,18 @@ public class Main {
 	private static GameLogic logic;
 
 	public static void main(String[] args) {
-		// write your code here
 
 		logic = new GameLogic();
-		
+
 		int i = 0;
-		while (i<9) {
+		// ToDo: replace condition of while loop
+		while (!logic.IsThereWinner()) {
 			logic.makeTurn();
 			logic.TestOutput();
 			i++;
 		}
+
 		
-		logic.TestOutput();
 		System.out.println("Das Spiel ist fertig.");
 
 	}
