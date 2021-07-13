@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Scanner;
+
 /**
  * Class to implement the Logic of the Game Tic Tac Toe. One Player is on turn
  * and has to draw his Symbol in a field. First player who gets 3 symbols of its
@@ -21,8 +23,8 @@ public class GameLogic {
 		player2.setName(Main.playerStringInput());
 	}
 
-	public void makeTurn() {
-		input = Main.playerInput();
+	public void makeTurn(int input) {
+		this.input = input;
 		fieldIsOccupied(input);
 		for (int i = 0; i < 9; i++) {
 			if (input - 1 == i && fields[i].equals("")) {
@@ -96,6 +98,7 @@ public class GameLogic {
 				|| (fields[2].equals("X") && fields[4].equals("X") && fields[6].equals("X"))) {
 			winner = true;
 			player1.setHasWon(true);
+			player1.setWinningPoints();
 		}
 		if ((fields[0].equals("O") && fields[1].equals("O") && fields[2].equals("O"))
 				|| (fields[3].equals("O") && fields[4].equals("O") && fields[5].equals("O"))
@@ -107,6 +110,7 @@ public class GameLogic {
 				|| (fields[2].equals("O") && fields[4].equals("O") && fields[6].equals("O"))) {
 			winner = true;
 			player2.setHasWon(true);
+			player2.setWinningPoints();
 		}
 		return winner;
 	}
@@ -125,11 +129,63 @@ public class GameLogic {
 
 	public Player WhoIsWinner() {
 		Player winner = null;
-		if (player1.isHasWon())
+		if (player1.isHasWon()) {
 			winner = player1;
-		if (player2.isHasWon())
+		}
+		if (player2.isHasWon()) {
 			winner = player2;
+		}
+
 		return winner;
+	}
+
+	public void resetFields() {
+		for (int i = 0; i < 9; i++) {
+			fields[i] = "";
+		}
+	}
+
+	public boolean gameKeepsRunning() {
+		String input;
+		boolean bool = true;
+		if (IsThereWinner() || draw()) {
+			if (WhoIsWinner() != null) {
+				System.out.println(WhoIsWinner().getName() + " hat gewonnen.");
+				System.out.println(player1.getName() + " hat " + player1.getWinningPoints() + " Siegpunkte.");
+				System.out.println(player2.getName() + " hat " + player2.getWinningPoints() + " Siegpunkte.");
+			}
+			System.out.println("Möchten Sie neustarten");
+			Scanner scan = new Scanner(System.in);
+			input = scan.next();
+			if (input.toLowerCase().equals("ja")) {
+				resetFields();
+				bool = true;
+			} else {
+				bool = false;
+				endWinner();
+			}
+		}
+		return bool;
+	}
+
+	public void endWinner() {
+		if (player1.getWinningPoints() > player2.getWinningPoints()) {
+			System.out.println(player1.getName() + " hat " + player1.getWinningPoints() + " Siegpunkte.");
+			System.out.println(player2.getName() + " hat " + player2.getWinningPoints() + " Siegpunkte.");
+			System.out.println(player1.getName() + " hat den Gesamtsieg errungen. Bravo!!!");
+		}
+
+		if (player2.getWinningPoints() > player1.getWinningPoints()) {
+			System.out.println(player2.getName() + " hat " + player2.getWinningPoints() + " Siegpunkte.");
+			System.out.println(player1.getName() + " hat " + player1.getWinningPoints() + " Siegpunkte.");
+			System.out.println(player2.getName() + " hat den Gesamtsieg errungen. Bravo!!!");
+		}
+
+		if (player2.getWinningPoints() == player1.getWinningPoints()) {
+
+			System.out.println("Es gibt keinen Gesamtsiege. Es ist unentschieden. Good game!!");
+		}
+
 	}
 
 	public void TestOutput() {

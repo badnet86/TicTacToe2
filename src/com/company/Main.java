@@ -7,16 +7,17 @@ public class Main {
 	private static GameLogic logic;
 
 	public static void main(String[] args) {
+
 		logic = new GameLogic();
 		logic.initialisePlayer();
 		logic.TestOutput();
 		int i = 0;
-		while (!logic.IsThereWinner() && !logic.draw()) {
-			logic.makeTurn();
+		while (logic.gameKeepsRunning()) {
+			logic.makeTurn(playerInput());
 			logic.TestOutput();
 			i++;
 		}
-		System.out.println("Das Spiel ist fertig. " + logic.WhoIsWinner().getName() + " hat gewonnen.");
+
 	}
 
 	public static int playerInput() {
@@ -32,5 +33,4 @@ public class Main {
 		Scanner scan = new Scanner(System.in);
 		return scan.next();
 	}
-
 }
