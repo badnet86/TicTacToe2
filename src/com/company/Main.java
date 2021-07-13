@@ -10,11 +10,12 @@ public class Main {
 
 		logic = new GameLogic();
 		logic.initialisePlayer();
-		logic.TestOutput();
+		logic.drawPlayground();
 		int i = 0;
 		while (logic.gameKeepsRunning()) {
 			logic.makeTurn(playerInput());
-			logic.TestOutput();
+			logic.fillPlayground();
+			logic.drawPlayground();
 			i++;
 		}
 

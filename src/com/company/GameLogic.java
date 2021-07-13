@@ -13,8 +13,14 @@ public class GameLogic {
 
 	private int input = 0;
 
+	private Playground playground = new Playground();
+
 	Player player1 = new Player("Player1");
 	Player player2 = new Player("Player2");
+
+	public void drawPlayground() {
+		playground.drawPlayGround();
+	}
 
 	public void initialisePlayer() {
 		System.out.println("Gib den Namen für Player 1 ein: ");
@@ -159,6 +165,7 @@ public class GameLogic {
 			input = scan.next();
 			if (input.toLowerCase().equals("ja")) {
 				resetFields();
+				resetPlayground();
 				bool = true;
 			} else {
 				bool = false;
@@ -194,4 +201,15 @@ public class GameLogic {
 		System.out.println("Feld 7: " + fields[6] + " Feld 8: " + fields[7] + " Feld 9: " + fields[8]);
 	}
 
+	public void fillPlayground() {
+
+		for (int i = 0; i < 9; i++) {
+			if (!fields[i].equals("")) {
+				playground.setInputLines(i, fields[i]);
+			}
+		}
+	}
+public void resetPlayground() {
+	playground.setInputLines(input, null);
+}
 }
