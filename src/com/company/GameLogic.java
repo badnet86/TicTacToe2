@@ -6,15 +6,6 @@ package com.company;
  * own in a row wins the game.
  */
 public class GameLogic {
-//	private String field1 = "";
-//	private String field2 = "";
-//	private String field3 = "";
-//	private String field4 = "";
-//	private String field5 = "";
-//	private String field6 = "";
-//	private String field7 = "";
-//	private String field8 = "";
-//	private String field9 = "";
 
 	private String[] fields = { "", "", "", "", "", "", "", "", "" };
 
@@ -31,64 +22,17 @@ public class GameLogic {
 	}
 
 	public void makeTurn() {
-
 		input = Main.playerInput();
 		fieldIsOccupied(input);
-
 		for (int i = 0; i < 9; i++) {
-			if (input-1 == i && fields[i].equals("")) {
+			if (input - 1 == i && fields[i].equals("")) {
 				fields[i] = setXorO();
 				setCurrentPlayer();
 			}
-
 		}
 		if (IsThereWinner())
 			System.out.println("Gewinner ist: " + WhoIsWinner());
 	}
-
-//		for(int i = 1; i < 10; i++)
-//		{field = "field" + i;
-//		System.out.println(field);
-//			if (input == i && field1.equals(""))
-//			{System.out.println("Treffer");
-//				field = setXorO();
-//			setCurrentPlayer();}
-//	}
-//		if (input == 1 && field1.equals("")) {
-//			field1 = setXorO();
-//			setCurrentPlayer();
-//		}
-//		if (input == 2 && field2.equals("")) {
-//			field2 = setXorO();
-//			setCurrentPlayer();
-//		}
-//		if (input == 3 && field3.equals("")) {
-//			field3 = setXorO();
-//			setCurrentPlayer();
-//		}
-//		if (input == 4 && field4.equals("")) {
-//			field4 = setXorO();
-//			setCurrentPlayer();
-//		}
-//		if (input == 5 && field5.equals("")) {
-//			field5 = setXorO();
-//			setCurrentPlayer();
-//		}
-//		if (input == 6 && field6.equals("")) {
-//			field6 = setXorO();
-//			setCurrentPlayer();
-//		}
-//		if (input == 7 && field7.equals("")) {
-//			field7 = setXorO();
-//			setCurrentPlayer();
-//		}
-//		if (input == 8 && field8.equals("")) {
-//			field8 = setXorO();
-//			setCurrentPlayer();
-//		}
-//		if (input == 9 && field9.equals("")) {
-//			field9 = setXorO();
-//			setCurrentPlayer();
 
 	/**
 	 * Method sets the current active Player.
@@ -132,55 +76,13 @@ public class GameLogic {
 		return symbol;
 	}
 
-	public boolean fieldIsOccupied(int input) {
-		boolean b = false;
-
+	public void fieldIsOccupied(int input) {
 		for (int i = 0; i < 9; i++) {
-			if (input-1 == i && !fields[i].equals("")) {
+			if (input - 1 == i && !fields[i].equals("")) {
 				System.out.println("Feld ist besetzt. Anderes Feld wählen.");
-				b = true;
 			}
 		}
-		return b;
 	}
-
-//		if (input == 1 && !field1.equals("")) {
-//			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
-//			b = true;
-//		}
-//		if (input == 2 && !field2.equals("")) {
-//			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
-//			b = true;
-//		}
-//		if (input == 3 && !field3.equals("")) {
-//			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
-//			b = true;
-//		}
-//		if (input == 4 && !field4.equals("")) {
-//			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
-//			b = true;
-//		}
-//		if (input == 5 && !field5.equals("")) {
-//			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
-//			b = true;
-//		}
-//		if (input == 6 && !field6.equals("")) {
-//			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
-//			b = true;
-//		}
-//		if (input == 7 && !field7.equals("")) {
-//			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
-//			b = true;
-//		}
-//		if (input == 8 && !field8.equals("")) {
-//			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
-//			b = true;
-//		}
-//		if (input == 9 && !field9.equals("")) {
-//			System.out.println("Feld ist besetzt. Anderes Feld wählen.");
-//			b = true;
-//		}
-//		return b;
 
 	public boolean IsThereWinner() {
 		boolean winner = false;
