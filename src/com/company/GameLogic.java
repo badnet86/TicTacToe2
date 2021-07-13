@@ -165,7 +165,7 @@ public class GameLogic {
 			input = scan.next();
 			if (input.toLowerCase().equals("ja")) {
 				resetFields();
-				resetPlayground();
+				playground.setInputLinesToStart();
 				bool = true;
 			} else {
 				bool = false;
@@ -209,7 +209,5 @@ public class GameLogic {
 			}
 		}
 	}
-public void resetPlayground() {
-	playground.setInputLines(input, null);
-}
+
 }
