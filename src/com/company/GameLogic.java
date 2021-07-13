@@ -11,26 +11,47 @@ public class GameLogic {
 
 	private String[] fields = { "", "", "", "", "", "", "", "", "" };
 
-	private int input = 0;
-
 	private Playground playground = new Playground();
-
+	private int input = 0;
 	Player player1 = new Player("Player1");
 	Player player2 = new Player("Player2");
 
+	public GameLogic() {
+		initialisePlayer();
+		drawPlayground();
+	}
+
+	
+	
+	
 	public void drawPlayground() {
 		playground.drawPlayGround();
 	}
 
-	public void initialisePlayer() {
+	private void initialisePlayer() {
 		System.out.println("Gib den Namen für Player 1 ein: ");
-		player1.setName(Main.playerStringInput());
+		player1.setName(playerStringInput());
 		System.out.println("Gib den Namen für Player 2 ein: ");
-		player2.setName(Main.playerStringInput());
+		player2.setName(playerStringInput());
 	}
+	
+	private  String playerStringInput() {
+		String input;
+		Scanner scan = new Scanner(System.in);
+		input = scan.next();
+		return input;
+	}
+	
+	private  int playerInput() {
+		int input = 0;
+		Scanner scan = new Scanner(System.in);
+		String currentPlayerName = whoIsCurrentPlayer().getName();
+		System.out.println("Spieler " + currentPlayerName + " wähle ein Feld:");
+		input = scan.nextInt();
+		return input;}
 
-	public void makeTurn(int input) {
-		this.input = input;
+	public void makeTurn() {
+		this.input = playerInput();
 		fieldIsOccupied(input);
 		for (int i = 0; i < 9; i++) {
 			if (input - 1 == i && fields[i].equals("")) {
@@ -45,7 +66,7 @@ public class GameLogic {
 	 *
 	 * @return returns active Player which has to make his turn.
 	 */
-	public void setCurrentPlayer() {
+	private void setCurrentPlayer() {
 
 		if (player1.isOnTurn() == false && player2.isOnTurn() == false) {
 			player1.setOnTurn(true);
@@ -61,7 +82,7 @@ public class GameLogic {
 
 	}
 
-	public Player whoIsCurrentPlayer() {
+	private Player whoIsCurrentPlayer() {
 		Player currentPlayer = player1;
 		if (player1.isOnTurn() == true)
 			currentPlayer = player1;
@@ -73,7 +94,7 @@ public class GameLogic {
 	/**
 	 * @return returns X or O. It depends on the Symbol of the active Player
 	 */
-	public String setXorO() {
+	private String setXorO() {
 		String symbol = null;
 		if (whoIsCurrentPlayer() == player1)
 			symbol = "X";
@@ -82,7 +103,7 @@ public class GameLogic {
 		return symbol;
 	}
 
-	public void fieldIsOccupied(int input) {
+	private void fieldIsOccupied(int input) {
 		for (int i = 0; i < 9; i++) {
 			if (input - 1 == i && !fields[i].equals("")) {
 				System.out.println("Feld ist besetzt. Anderes Feld wählen.");
@@ -90,7 +111,7 @@ public class GameLogic {
 		}
 	}
 
-	public boolean IsThereWinner() {
+	private boolean IsThereWinner() {
 		boolean winner = false;
 		player1.setHasWon(false);
 		player2.setHasWon(false);
@@ -121,7 +142,7 @@ public class GameLogic {
 		return winner;
 	}
 
-	public boolean draw() {
+	private boolean draw() {
 		boolean bool = false;
 
 		if (!fields[0].equals("") && !fields[1].equals("") && !fields[2].equals("") && !fields[3].equals("")
@@ -133,7 +154,7 @@ public class GameLogic {
 		return bool;
 	}
 
-	public Player WhoIsWinner() {
+	private Player WhoIsWinner() {
 		Player winner = null;
 		if (player1.isHasWon()) {
 			winner = player1;
@@ -145,7 +166,7 @@ public class GameLogic {
 		return winner;
 	}
 
-	public void resetFields() {
+	private void resetFields() {
 		for (int i = 0; i < 9; i++) {
 			fields[i] = "";
 		}
@@ -163,9 +184,11 @@ public class GameLogic {
 			System.out.println("Möchten Sie neustarten");
 			Scanner scan = new Scanner(System.in);
 			input = scan.next();
+			// scan.close();
 			if (input.toLowerCase().equals("ja")) {
 				resetFields();
 				playground.setInputLinesToStart();
+				playground.drawPlayGround();
 				bool = true;
 			} else {
 				bool = false;
@@ -175,7 +198,7 @@ public class GameLogic {
 		return bool;
 	}
 
-	public void endWinner() {
+	private void endWinner() {
 		if (player1.getWinningPoints() > player2.getWinningPoints()) {
 			System.out.println(player1.getName() + " hat " + player1.getWinningPoints() + " Siegpunkte.");
 			System.out.println(player2.getName() + " hat " + player2.getWinningPoints() + " Siegpunkte.");
