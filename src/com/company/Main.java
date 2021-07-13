@@ -11,12 +11,12 @@ public class Main {
 		logic.initialisePlayer();
 		logic.TestOutput();
 		int i = 0;
-		while (!logic.IsThereWinner()) {
+		while (!logic.IsThereWinner() && !logic.draw()) {
 			logic.makeTurn();
 			logic.TestOutput();
 			i++;
 		}
-		System.out.println("Das Spiel ist fertig. " + logic.WhoIsWinner() + " hat gewonnen.");
+		System.out.println("Das Spiel ist fertig. " + logic.WhoIsWinner().getName() + " hat gewonnen.");
 	}
 
 	public static int playerInput() {

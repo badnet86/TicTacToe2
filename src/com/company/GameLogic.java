@@ -30,8 +30,6 @@ public class GameLogic {
 				setCurrentPlayer();
 			}
 		}
-		if (IsThereWinner())
-			System.out.println("Gewinner ist: " + WhoIsWinner());
 	}
 
 	/**
@@ -86,6 +84,8 @@ public class GameLogic {
 
 	public boolean IsThereWinner() {
 		boolean winner = false;
+		player1.setHasWon(false);
+		player2.setHasWon(false);
 		if ((fields[0].equals("X") && fields[1].equals("X") && fields[2].equals("X"))
 				|| (fields[3].equals("X") && fields[4].equals("X") && fields[5].equals("X"))
 				|| (fields[6].equals("X") && fields[7].equals("X") && fields[8].equals("X"))
@@ -111,13 +111,25 @@ public class GameLogic {
 		return winner;
 	}
 
-	public String WhoIsWinner() {
+	public boolean draw() {
+		boolean bool = false;
+
+		if (!fields[0].equals("") && !fields[1].equals("") && !fields[2].equals("") && !fields[3].equals("")
+				&& !fields[4].equals("") && !fields[5].equals("") && !fields[6].equals("") && !fields[7].equals("")
+				&& !fields[8].equals("")) {
+			bool = true;
+			System.out.println("Es ist unentschieden.");
+		}
+		return bool;
+	}
+
+	public Player WhoIsWinner() {
 		Player winner = null;
 		if (player1.isHasWon())
 			winner = player1;
 		if (player2.isHasWon())
 			winner = player2;
-		return winner.getName();
+		return winner;
 	}
 
 	public void TestOutput() {
