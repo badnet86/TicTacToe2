@@ -21,10 +21,54 @@ public class GameLogic {
 		drawPlayground();
 	}
 
-	
-	
-	
-	public void drawPlayground() {
+	public void makeTurn() {
+		this.input = playerInput();
+		fieldIsOccupied(input);
+		for (int i = 0; i < 9; i++) {
+			if (input - 1 == i && fields[i].equals("")) {
+				fields[i] = setXorO();
+				setCurrentPlayer();
+				fillPlayground();
+				drawPlayground();
+			}
+		}
+	}
+
+	public boolean gameKeepsRunning() {
+		String input;
+		boolean bool = true;
+		if (IsThereWinner() || draw()) {
+			if (WhoIsWinner() != null) {
+				System.out.println(WhoIsWinner().getName() + " hat gewonnen.");
+				System.out.println(player1.getName() + " hat " + player1.getWinningPoints() + " Siegpunkte.");
+				System.out.println(player2.getName() + " hat " + player2.getWinningPoints() + " Siegpunkte.");
+			}
+			System.out.println("Möchten Sie neustarten");
+			Scanner scan = new Scanner(System.in);
+			input = scan.next();
+			if (input.toLowerCase().equals("ja")) {
+				resetFields();
+				playground.setInputLinesToStart();
+				playground.drawPlayGround();
+				bool = true;
+			} else {
+				bool = false;
+				endWinner();
+			}
+		}
+		return bool;
+	}
+
+	private void fillPlayground() {
+
+		for (int i = 0; i < 9; i++) {
+			if (!fields[i].equals("")) {
+				playground.setInputLines(i, fields[i]);
+			}
+		}
+	}
+
+	private void drawPlayground() {
 		playground.drawPlayGround();
 	}
 
@@ -34,31 +78,21 @@ public class GameLogic {
 		System.out.println("Gib den Namen für Player 2 ein: ");
 		player2.setName(playerStringInput());
 	}
-	
-	private  String playerStringInput() {
+
+	private String playerStringInput() {
 		String input;
 		Scanner scan = new Scanner(System.in);
 		input = scan.next();
 		return input;
 	}
-	
-	private  int playerInput() {
+
+	private int playerInput() {
 		int input = 0;
 		Scanner scan = new Scanner(System.in);
 		String currentPlayerName = whoIsCurrentPlayer().getName();
 		System.out.println("Spieler " + currentPlayerName + " wähle ein Feld:");
 		input = scan.nextInt();
-		return input;}
-
-	public void makeTurn() {
-		this.input = playerInput();
-		fieldIsOccupied(input);
-		for (int i = 0; i < 9; i++) {
-			if (input - 1 == i && fields[i].equals("")) {
-				fields[i] = setXorO();
-				setCurrentPlayer();
-			}
-		}
+		return input;
 	}
 
 	/**
@@ -172,32 +206,6 @@ public class GameLogic {
 		}
 	}
 
-	public boolean gameKeepsRunning() {
-		String input;
-		boolean bool = true;
-		if (IsThereWinner() || draw()) {
-			if (WhoIsWinner() != null) {
-				System.out.println(WhoIsWinner().getName() + " hat gewonnen.");
-				System.out.println(player1.getName() + " hat " + player1.getWinningPoints() + " Siegpunkte.");
-				System.out.println(player2.getName() + " hat " + player2.getWinningPoints() + " Siegpunkte.");
-			}
-			System.out.println("Möchten Sie neustarten");
-			Scanner scan = new Scanner(System.in);
-			input = scan.next();
-			// scan.close();
-			if (input.toLowerCase().equals("ja")) {
-				resetFields();
-				playground.setInputLinesToStart();
-				playground.drawPlayGround();
-				bool = true;
-			} else {
-				bool = false;
-				endWinner();
-			}
-		}
-		return bool;
-	}
-
 	private void endWinner() {
 		if (player1.getWinningPoints() > player2.getWinningPoints()) {
 			System.out.println(player1.getName() + " hat " + player1.getWinningPoints() + " Siegpunkte.");
@@ -213,7 +221,7 @@ public class GameLogic {
 
 		if (player2.getWinningPoints() == player1.getWinningPoints()) {
 
-			System.out.println("Es gibt keinen Gesamtsiege. Es ist unentschieden. Good game!!");
+			System.out.println("Es gibt keinen Gesamtsieger. Es ist unentschieden. Good game!!");
 		}
 
 	}
@@ -222,15 +230,6 @@ public class GameLogic {
 		System.out.println("Feld 1: " + fields[0] + " Feld 2: " + fields[1] + " Feld 3: " + fields[2]);
 		System.out.println("Feld 4: " + fields[3] + " Feld 5: " + fields[4] + " Feld 6: " + fields[5]);
 		System.out.println("Feld 7: " + fields[6] + " Feld 8: " + fields[7] + " Feld 9: " + fields[8]);
-	}
-
-	public void fillPlayground() {
-
-		for (int i = 0; i < 9; i++) {
-			if (!fields[i].equals("")) {
-				playground.setInputLines(i, fields[i]);
-			}
-		}
 	}
 
 }
